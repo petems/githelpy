@@ -1,0 +1,6 @@
+/vendor/*
+/githelpy/test/
+/reference/test/
+/coverage.txt
+/cmd/test/
+/build/*

@@ -1,0 +1,23 @@
+language: go
+
+sudo: required
+
+go:
+  - 1.7
+
+before_install:
+  - wget -O /tmp/githelpy https://github.com/petems/githelpy/releases/download/v2.0.0/githelpy_linux_386 && chmod 777 /tmp/githelpy
+  - export PATH=$PATH:/tmp/
+  - go get github.com/onsi/gomega
+  - go get github.com/onsi/ginkgo
+  - go get github.com/Masterminds/glide
+  - go get github.com/alecthomas/gometalinter
+  - gometalinter --install --update
+  - githelpy
+
+install: glide install
+
+script: make test-all && perl test-branch-commit-messages-in-travis.pl
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
